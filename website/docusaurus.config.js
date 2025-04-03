@@ -45,6 +45,7 @@ module.exports = {
       defer: true,
     },
     {src: 'https://snack.expo.dev/embed.js', defer: true},
+    {src: 'https://platform.twitter.com/widgets.js', async: true},
   ],
   favicon: 'img/favicon.ico',
   titleDelimiter: '·',
@@ -208,9 +209,9 @@ module.exports = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       announcementBar: {
-        id: 'support_ukraine',
+        id: 'reactconf2024',
         content:
-          'Support Ukraine 🇺🇦 <a target="_blank" rel="noopener noreferrer" href="https://opensource.facebook.com/support-ukraine"> Help Provide Humanitarian Aid to Ukraine</a>.',
+          'Stream React Conf on May 15-16. <a target="_blank" rel="noopener noreferrer" href="https://conf.react.dev/">Learn More.</a>',
         backgroundColor: '#20232a',
         textColor: '#fff',
         isCloseable: false,
@@ -219,6 +220,9 @@ module.exports = {
         defaultLanguage: 'jsx',
         theme: require('./core/PrismTheme'),
         additionalLanguages: [
+          'diff',
+          'bash',
+          'json',
           'java',
           'kotlin',
           'objectivec',
@@ -365,8 +369,8 @@ module.exports = {
                 to: 'blog',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/reactnative',
+                label: 'X',
+                href: 'https://x.com/reactnative',
               },
               {
                 label: 'GitHub',
@@ -379,7 +383,7 @@ module.exports = {
             items: [
               {
                 label: 'ReactJS',
-                href: 'https://reactjs.org/',
+                href: 'https://react.dev/',
               },
               {
                 label: 'Privacy Policy',

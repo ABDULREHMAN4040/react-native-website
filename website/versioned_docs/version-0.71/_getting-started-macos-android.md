@@ -24,11 +24,10 @@ If you have already installed Node on your system, make sure it is Node 14 or ne
 We recommend installing the OpenJDK distribution called Azul **Zulu** using [Homebrew](http://brew.sh/). Run the following commands in a Terminal after installing Homebrew:
 
 ```shell
-brew tap homebrew/cask-versions
-brew install --cask zulu11
+brew install --cask zulu@11
 
 # Get path to where cask was installed to double-click installer
-brew info --cask zulu11
+brew info --cask zulu@11
 ```
 
 After you install the JDK, update your `JAVA_HOME` environment variable. If you used above steps, JDK will likely be at `/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home`
@@ -104,7 +103,7 @@ React Native has a built-in command line interface, which you can use to generat
 npx react-native@latest init AwesomeProject
 ```
 
-This is not necessary if you are integrating React Native into an existing application, if you "ejected" from Expo, or if you're adding Android support to an existing React Native project (see [Integration with Existing Apps](integration-with-existing-apps.md)). You can also use a third-party CLI to init your React Native app, such as [Ignite CLI](https://github.com/infinitered/ignite).
+This is not necessary if you are integrating React Native into an existing application, or if you've installed [Expo](https://docs.expo.dev/bare/installing-expo-modules/) in your project, or if you're adding Android support to an existing React Native project (see [Integration with Existing Apps](integration-with-existing-apps.md)). You can also use a third-party CLI to init your React Native app, such as [Ignite CLI](https://github.com/infinitered/ignite).
 
 <h3>[Optional] Using a specific version or template</h3>
 
