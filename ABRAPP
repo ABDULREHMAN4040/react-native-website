@@ -1,0 +1,107 @@
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, Button, ScrollView, StyleSheet } from 'react-native';
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, push, onValue } from "firebase/database";
+
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const ChatApp = () => {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+
+  useEffect(() => {
+    const messagesRef = ref(db, "messages");
+    onValue(messagesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setMessages(Object.values(data));
+      }
+    });
+  }, []);
+
+  const sendMessage = () => {
+    if (input.trim() === '') return;
+    const messagesRef = ref(db, "messages");
+    push(messagesRef, {
+      text: input,
+      sender: 'You',
+    });
+    setInput('');
+  };
+
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.chatContainer}>
+        {messages.map((msg, index) => (
+          <View key={index} style={[styles.message, msg.sender === 'You' ? styles.userMessage : styles.otherMessage]}>
+            <Text style={styles.messageText}>{msg.text}</Text>
+          </View>
+        ))}
+      </ScrollView>
+
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Type a message"
+          value={input}
+          onChangeText={(text) => setInput(text)}
+        />
+        <Button title="Send" onPress={sendMessage} />
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+  },
+  chatContainer: {
+    flex: 1,
+    marginBottom: 10,
+  },
+  message: {
+    padding: 10,
+    borderRadius: 8,
+    marginVertical: 4,
+  },
+  userMessage: {
+    backgroundColor: '#007bff',
+    alignSelf: 'flex-end',
+  },
+  otherMessage: {
+    backgroundColor: '#ccc',
+    alignSelf: 'flex-start',
+  },
+  messageText: {
+    color: 'white',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  input: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 8,
+    marginRight: 10,
+  },
+});
